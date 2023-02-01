@@ -1,15 +1,13 @@
 
-FROM node:16.19-slim
-
-RUN mkdir -p /usr/src/app
+FROM node:16
 
 WORKDIR /usr/src/app
 
-COPY package.json ./
+COPY package*.json ./
 
 RUN npm install
 
-COPY . /usr/src/app
+COPY . .
 
 EXPOSE 5000
 
