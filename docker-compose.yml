@@ -2,6 +2,12 @@ version: "3.9"
 services:
   server:
     container_name: ms_raflyanandas_betest_server
+    environment:
+      - PASS_SEC=699ygixgnj
+      - JWT_ACCESS_SEC=bafpmlzYqS
+      - MONGODB_URI=mongodb://root:root@mongo:27017/db_raflyanandas_betest?authSource=admin
+      - REDIS_URI=redis://redis_raflyanandas_betest:6379
+      - NODE_ENV=production
     restart: always
     build: .
     ports:
