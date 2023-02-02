@@ -66,6 +66,7 @@ const getAllUser = async (req, res) => {
 
 // Get User By accountNumber
 const getUserByAccountNumber = async (req, res) => {
+  console.log("asds");
   const uniqueCacheKey = `accountNumber-${req.params.id}`;
   const cacheExpiry = 1800; // 30 min
 
