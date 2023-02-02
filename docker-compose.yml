@@ -13,11 +13,15 @@ services:
       - redis
   mongo:
     container_name: mongo
+    environment:
+      - MONGO_INITDB_DATABASE=db_raflyanandas_betest
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
     image: mongo
     # volumes:
     #   - ./data:/data/db
     ports:
-      - "27018:27017"
+      - "27017:27017"
   redis:
     container_name: redis_raflyanandas_betest
     image: "redis:alpine"
