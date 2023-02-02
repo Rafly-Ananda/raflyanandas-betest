@@ -39,26 +39,72 @@ const createUser = async (req, res) => {
 
 // Read All
 const getAllUser = async (req, res) => {
-  const uniqueCacheKey = `allUsers:accountNumber-${req.query.accountNumber}_identityNumber-${req.query.identityNumber}`;
+  const uniqueCacheKey = `allUsers`;
   const cacheExpiry = 1800; // 30 min
 
   try {
     const users = await cacheGetterSetter(
       uniqueCacheKey,
       async () => {
-        let result;
+        const result = await User.find();
+        return result;
+      },
+      cacheExpiry
+    );
 
-        if (req.query.accountNumber) {
-          result = await User.findOne({
-            accountNumber: req.query.accountNumber,
-          });
-        } else if (req.query.identityNumber) {
-          result = await User.findOne({
-            identityNumber: req.query.identityNumber,
-          });
-        } else {
-          result = await User.find();
-        }
+    res.status(200).json({
+      success: true,
+      result: users,
+    });
+  } catch (e) {
+    res.status(500).json({
+      succes: false,
+      message: `${e.message}.`,
+    });
+  }
+};
+
+// Get User By accountNumber
+const getUserByAccountNumber = async (req, res) => {
+  const uniqueCacheKey = `accountNumber-${req.params.id}`;
+  const cacheExpiry = 1800; // 30 min
+
+  try {
+    const users = await cacheGetterSetter(
+      uniqueCacheKey,
+      async () => {
+        const result = await User.findOne({
+          accountNumber: req.params.id,
+        });
+        return result;
+      },
+      cacheExpiry
+    );
+
+    res.status(200).json({
+      success: true,
+      result: users,
+    });
+  } catch (e) {
+    res.status(500).json({
+      succes: false,
+      message: `${e.message}.`,
+    });
+  }
+};
+
+// Get User By accountNumber
+const getUserByIdentityNumber = async (req, res) => {
+  const uniqueCacheKey = `identityNumber-${req.params.id}`;
+  const cacheExpiry = 1800; // 30 min
+
+  try {
+    const users = await cacheGetterSetter(
+      uniqueCacheKey,
+      async () => {
+        const result = await User.findOne({
+          accountNumber: req.params.id,
+        });
 
         return result;
       },
@@ -155,6 +201,8 @@ const deleteUser = async (req, res) => {
 module.exports = {
   createUser,
   getAllUser,
+  getUserByAccountNumber,
+  getUserByIdentityNumber,
   getSingleUser,
   updateUser,
   deleteUser,
