@@ -1,6 +1,7 @@
 # raflyanandas_betest
 
 1. Mircoservice dibuat dengan menggunakan NodeJS dan Express, serta menggunakan MongoDB sebagai database dan redis untuk metode caching get user data.
+   > **Note:** Tipe database yang saya gunakan untuk demo ini bersifat **ephemeral** dengan maksud bila server di restart atau dimatikan, database akan ter-reset. hal ini saya lakukan untuk mempercepat proses development web server dalam technical test ini, akan tetapi bila ingin menggunakan dedicated database, kita bisa saja langsung deploy service tersebut di MongoDB Atlas Cloud misalnya dan mengambil string URL lalu di connect dengan web server melalui environment variable, hal ini pun berlaku kepada Redis
 2. CRUD API Route di lindungi dengan JWT token, generate JWT token dapat dilakukan dengan mengakses rute /api/v1/token
 3. Dokumentasi Postman : **https://documenter.getpostman.com/view/18026245/2s935mqjJo**
 4. Saya menggunakan strategi caching get request, untuk mempercepat proses get data user setelah data tersebut pertama kali di panggil, lama cache dapat ditentukan oleh variable pada **config.js** file. Dapat dilihat bahwa akan ada perbedaan waktu GET request pada request pertama dengan request selanjutnya (selama cache belum expire).
