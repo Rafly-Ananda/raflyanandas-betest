@@ -24,12 +24,14 @@ app.use(cors());
 app.use(`/api/${API_VERSION}/users`, userRouter);
 app.use(`/api/${API_VERSION}/token`, apiTokenRouter);
 
-// Server Init
-(() => {
-  redisInit();
-  mongooseInit();
+console.log("test")(
+  // Server Init
+  () => {
+    redisInit();
+    mongooseInit();
 
-  app.listen(PORT, () => {
-    console.log(`Listening on port ${PORT} . . .`);
-  });
-})();
+    app.listen(PORT, () => {
+      console.log(`Listening on port ${PORT} . . .`);
+    });
+  }
+)();
